@@ -4,12 +4,15 @@ pipeline {
         registry = '908227405368.dkr.ecr.ap-south-1.amazonaws.com/repo:latest'
     }
     stages {
+       stage('Clone repository') {
+        checkout scm
+    }
         
         stage("Docker Build") {
             steps {
-                sh "git clone https://github.com/PriyaDhiman/CICD.git"
-                sh "cd /CICD"
-                sh "docker build -t ${registry} ."
+                
+                sh "docker build -t ${registry} ." 
+               /* docker.build("PriyaDhiman/CICD") */
             }
         }
         stage("ECR Login") {
