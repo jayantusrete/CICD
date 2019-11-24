@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    environment {
+        registry = '908227405368.dkr.ecr.ap-south-1.amazonaws.com/repo:latest'
+    }
+    stages {
+        
+        stage("Docker Build") {
+            steps {
+                sh "cd /app"
+                sh "docker build -t ${registry} ."
+            }
+        }
+        stage("ECR Login") {
+            steps {
+                withAWS(credentials:'AccessECR') {
+                    script {
+                        def login = ecrLogin()
+                        sh "${login}"
+                    }
+                }
+            }
+        }
+        stage("Docker Push") {
+            steps {
+                sh "docker push ${registry}"
+            }
+        }
+    }
+    post {
+        success {
+            echo 'pushed'
+            
+        }
+    }
+}
