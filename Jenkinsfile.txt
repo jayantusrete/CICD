@@ -8,7 +8,7 @@ pipeline {
         stage("Docker Build") {
             steps {
                
-                sh "docker build -t ${registry} ."
+                sh "docker build -t ${registry} https://github.com/PriyaDhiman/CICD.git"
             }
         }
         stage("ECR Login") {
