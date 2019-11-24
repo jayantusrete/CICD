@@ -7,8 +7,9 @@ pipeline {
         
         stage("Docker Build") {
             steps {
-               
-                sh "docker build -t ${registry} https://github.com/PriyaDhiman/CICD.git"
+                sh "git clone https://github.com/PriyaDhiman/CICD.git"
+                sh "cd /CICD"
+                sh "docker build -t ${registry} ."
             }
         }
         stage("ECR Login") {
