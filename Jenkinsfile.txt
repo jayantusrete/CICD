@@ -3,8 +3,8 @@ pipeline {
     environment {
         registry = '908227405368.dkr.ecr.ap-south-1.amazonaws.com/repo:latest'
     }
-    /*stages {
-       stage('Clone repository') {
+    stages {
+      /* stage('Clone repository') {
         checkout scm
     }*/
         
